@@ -1,0 +1,21 @@
+{
+    "name": "FastGPT",
+    "short_name": "FastGPT",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#000000",
+    "theme_color": "#c1208b",
+    "icons": [
+      {
+        "src": "/static/icons/fast-gpt-192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "/static/icons/fast-gpt-512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+  }
+  

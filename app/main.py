@@ -7,11 +7,14 @@ from dotenv import load_dotenv
 from uuid import uuid4
 import markdown
 from pygments.formatters import HtmlFormatter
+from fastapi.staticfiles import StaticFiles
 
 # Load environment variables from .env file
 load_dotenv()
 
 app = FastAPI()
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
 templates = Jinja2Templates(directory="app/templates")
 
 client = AsyncOpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
