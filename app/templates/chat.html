@@ -21,6 +21,29 @@
         .htmx-request .custom-progress {
             display: block;
         }
+         /* Fixed header */
+         header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #f8f9fa;
+            z-index: 1000;
+            background-color: var(--pico-background-color);
+        }
+        /* Add padding to the top of the main content to avoid overlap with the fixed header */
+        #main-content {
+            padding-top: 180px; /* Adjust based on the height of your header */
+        }
+        /* Grid styles for header */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+        }
+
+        .grid > div:nth-child(2) {
+            justify-self: end;
+        }
     </style>
     <script>
         function attachChatFormEventListeners() {
@@ -47,21 +70,26 @@
 <body>
     <header>
         <div class="container">
-            <hgroup>
-                <h1>FastGPT</h1>
-                <p>Chat with OpenAI</p>
-                <p><i>{{ model_name }}</i></p>
-
-            </hgroup>
+            <div class="grid">
+                <div>
+                <hgroup>
+                    <h1>FastGPT</h1>
+                    <p>Chat with OpenAI</p>
+                    <p><i>{{ model_name }}</i></p>
+                </hgroup>
+                </div>
+                <div>
+                    <button class="outline" hx-post="/new-chat" hx-trigger="click" hx-target="#chat-box" hx-swap="innerHTML">New Chat</button>
+                </div>
+            </div>
         </div>
     </header>
-    <main class="container">
-        <section>
-            <button class="outline" hx-post="/new-chat" hx-trigger="click" hx-target="#chat-box" hx-swap="innerHTML">New Chat</button>
-        </section>
+    <main id="main-content" class="container">
+
         <div id="chat-box">
             {% include 'chat_box.html' %}
         </div>
+
     </main>
 </body>
 </html>
