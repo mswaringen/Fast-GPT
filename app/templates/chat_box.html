@@ -1,0 +1,17 @@
+<div>
+    <div id="chat-messages">
+        <!-- Chat messages will be loaded here -->
+    </div>
+    <form id="chat-form" hx-post="/send-message" hx-target="#chat-messages" hx-swap="beforeend" hx-trigger="submit">
+        <progress class="custom-progress"></progress>
+        <fieldset role="group">
+            <input
+                type="text"
+                name="message"
+                id="message-input"
+                placeholder="Enter message here"
+            />
+            <button type="submit">Send</button>
+        </fieldset>
+    </form>
+</div>

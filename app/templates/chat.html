@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark light" />
+    <title>FastGPT</title>
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.0.6/css/pico.fuchsia.min.css"
+    />
+    <script src="https://unpkg.com/htmx.org@1.9.4" integrity="sha384-zUfuhFKKZCbHTY6aRR46gxiqszMk5tcHjsVFxnUo8VMus4kHGVdIYVbOYYNlKmHV" crossorigin="anonymous"></script>
+    <style>
+        /* Hide the progress bar by default */
+        .custom-progress {
+            display: none;
+        }
+        /* Show the progress bar during an HTMX request */
+        .htmx-request .custom-progress {
+            display: block;
+        }
+    </style>
+    <script>
+        function attachChatFormEventListeners() {
+            const chatForm = document.getElementById("chat-form");
+            if (chatForm) {
+                const messageInput = document.getElementById("message-input");
+                chatForm.addEventListener("htmx:afterRequest", function () {
+                    messageInput.value = "";
+                });
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            attachChatFormEventListeners();
+        });
+
+        document.addEventListener("htmx:afterSwap", function(evt) {
+            if (evt.detail.target.id === "chat-box") {
+                attachChatFormEventListeners();
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <hgroup>
+                <h1>FastGPT</h1>
+                <p>Chat with OpenAI</p>
+                <p><i>{{ model_name }}</i></p>
+
+            </hgroup>
+        </div>
+    </header>
+    <main class="container">
+        <section>
+            <button class="outline" hx-post="/new-chat" hx-trigger="click" hx-target="#chat-box" hx-swap="innerHTML">New Chat</button>
+        </section>
+        <div id="chat-box">
+            {% include 'chat_box.html' %}
+        </div>
+    </main>
+</body>
+</html>
