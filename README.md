@@ -1,3 +1,5 @@
+![logo](static/icons/fast-gpt-192.png)
+
 # FastGPT
 
 FastAPI + HTMX chat wrapper for OpenAI API
