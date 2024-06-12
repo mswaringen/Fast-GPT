@@ -27,3 +27,7 @@ fly deploy
 - FastAPI + Jinja2
 - HTMX
 - Pico CSS
+
+
+## Screenshot
+![screenshot.png](screenshot.png)
