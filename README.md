@@ -5,6 +5,11 @@
 FastAPI + HTMX chat wrapper for OpenAI API
 
 ## Run Locally
+Create .env with these environment variables
+
+- OPENAI_API_KEY
+- MODEL_NAME
+- LOGIN_PASSWORD
 
 ```
 poetry init
@@ -12,12 +17,6 @@ uvicorn app.main:app --reload
 ```
 
 ## Deploy to Fly.io
-
-Create .env with these environment variables
-
-- OPENAI_API_KEY
-- MODEL_NAME
-- LOGIN_PASSWORD
 
 ```
 fly launch
