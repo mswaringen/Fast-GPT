@@ -32,7 +32,7 @@
         }
         /* Add padding to the top of the main content to avoid overlap with the fixed header */
         #main-content {
-            padding-top: 180px; /* Adjust based on the height of your header */
+            padding-top: 200px; /* Adjust based on the height of your header */
         }
         /* Grid styles for header */
         .grid {
@@ -40,7 +40,6 @@
             grid-template-columns: 1fr auto;
             align-items: center;
         }
-
         .grid > div:nth-child(2) {
             justify-self: end;
         }
@@ -50,36 +49,61 @@
             const chatForm = document.getElementById("chat-form");
             if (chatForm) {
                 const messageInput = document.getElementById("message-input");
+                const modelSelect = document.getElementById("model-source");
+                
+                chatForm.addEventListener("htmx:configRequest", function(event) {
+                    // Add the selected model to the HTMX request
+                    event.detail.parameters['model_source'] = modelSelect.value;
+                });
+    
                 chatForm.addEventListener("htmx:afterRequest", function () {
                     messageInput.value = "";
                 });
             }
         }
-
+    
+        function setDefaultModel() {
+            const modelSelect = document.getElementById("model-source");
+            if (modelSelect) {
+                modelSelect.value = 'anthropic';
+            }
+        }
+    
         document.addEventListener("DOMContentLoaded", function () {
+            setDefaultModel();
             attachChatFormEventListeners();
         });
-
+    
         document.addEventListener("htmx:afterSwap", function(evt) {
             if (evt.detail.target.id === "chat-box") {
+                setDefaultModel();
                 attachChatFormEventListeners();
             }
         });
+    
+        function newChat() {
+            htmx.ajax('POST', '/new-chat', {target:'#chat-box', swap:'innerHTML'});
+        }
     </script>
+    
 </head>
 <body>
     <header>
         <div class="container">
+            <hgroup>
+                <h1>FastGPT</h1>
+            </hgroup>
             <div class="grid">
                 <div>
-                <hgroup>
-                    <h1>FastGPT</h1>
-                    <p>Chat with OpenAI</p>
-                    <p><i>{{ model_name }}</i></p>
-                </hgroup>
+                    <select id="model-source" name="model_source">
+                        <option value="anthropic">Anthropic - Claude 3.5 Sonnet</option>
+                        <option value="openai">OpenAI - GPT-4o</option>
+                    </select>
                 </div>
                 <div>
+                    <section>
                     <button class="outline" hx-post="/new-chat" hx-trigger="click" hx-target="#chat-box" hx-swap="innerHTML">New Chat</button>
+                    </section>
                 </div>
             </div>
         </div>
