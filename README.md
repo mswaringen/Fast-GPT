@@ -2,12 +2,13 @@
 
 # FastGPT
 
-FastAPI + HTMX chat wrapper for OpenAI API
+FastAPI + HTMX chat wrapper for OpenAI & Anthropic
 
 ## Run Locally
 Create .env with these environment variables
 
 - OPENAI_API_KEY
+- ANTHROPIC_API_KEY
 - MODEL_NAME
 - LOGIN_PASSWORD
 

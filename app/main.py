@@ -77,7 +77,7 @@ async def send_message(request: Request, message: str = Form(...), model_source:
         # Use the new Anthropic API syntax
         response = await anthropic_client.messages.create(
             model="claude-3-5-sonnet-20240620",
-            max_tokens=1024,
+            max_tokens=4096,
             messages=messages
         )
         chat_response = response.content[0].text
